@@ -7,7 +7,7 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
 const { Model } = require('objection');
-const { isCelebrate } = require('celebrate');
+const { celebrate } = require('celebrate');
 
 const routes = require('./api');
 const { Knex } = require('./services');
@@ -55,7 +55,7 @@ app.use((req, res, next) => {
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  const status = isCelebrate(err) ? 400 : err.status || 500;
+  const status = celebrate(err) ? 400 : err.status || 500;
   const message =
     process.env.NODE_ENV === 'production' && err.status === 500
       ? 'Something Went Wrong!'
